@@ -50,12 +50,12 @@ def main():
     Mean_Delta = np.loadtxt(path_to_data + 'Mean_Delta.txt')
     Mean_Delta = Mean_Delta.astype('float32')
     Mean_Delta = torch.from_numpy (Mean_Delta)
-    Mean_Delta = torch.autograd.Variable(Mean_Delta.cuda(async=True),requires_grad=False)
+    Mean_Delta = torch.autograd.Variable(Mean_Delta.cuda(non-blocking=True),requires_grad=False)
 
     Mean_3D = np.loadtxt(path_to_data + 'Mean_3D.txt')
     Mean_3D = Mean_3D.astype('float32')
     Mean_3D = torch.from_numpy (Mean_3D)
-    Mean_3D = torch.autograd.Variable(Mean_3D.cuda(async=True),requires_grad=False)
+    Mean_3D = torch.autograd.Variable(Mean_3D.cuda(non-blocking=True),requires_grad=False)
 
     SD_2D = np.loadtxt(path_to_data + 'SD_2D.txt')
     SD_2D = SD_2D.astype('float32')
@@ -64,12 +64,12 @@ def main():
     SD_Delta = np.loadtxt(path_to_data + 'SD_Delta.txt')
     SD_Delta = SD_Delta.astype('float32')
     SD_Delta = torch.from_numpy (SD_Delta)
-    SD_Delta = torch.autograd.Variable(SD_Delta.cuda(async=True),requires_grad=False)
+    SD_Delta = torch.autograd.Variable(SD_Delta.cuda(non-blocking=True),requires_grad=False)
 
     SD_3D = np.loadtxt(path_to_data + 'SD_3D.txt')
     SD_3D = SD_3D.astype('float32')
     SD_3D = torch.from_numpy (SD_3D)
-    SD_3D = torch.autograd.Variable(SD_3D.cuda(async=True),requires_grad=False)
+    SD_3D = torch.autograd.Variable(SD_3D.cuda(non-blocking=True),requires_grad=False)
 
     """Loading Data"""
     train_list = 'train_list_4view.txt'
@@ -145,30 +145,30 @@ def train(train_loader, net, Mean_2D, Mean_Delta, Mean_3D, SD_2D, SD_Delta, SD_3
 
         # input and groundtruth
         pts2d1 = (pts2d1 - Mean_2D)/SD_2D 
-        pts2d1 = torch.autograd.Variable(pts2d1.cuda(async=True),requires_grad=False) 
+        pts2d1 = torch.autograd.Variable(pts2d1.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d2 = (pts2d2 - Mean_2D)/SD_2D 
-        pts2d2 = torch.autograd.Variable(pts2d2.cuda(async=True),requires_grad=False) 
+        pts2d2 = torch.autograd.Variable(pts2d2.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d3 = (pts2d3 - Mean_2D)/SD_2D 
-        pts2d3 = torch.autograd.Variable(pts2d3.cuda(async=True),requires_grad=False) 
+        pts2d3 = torch.autograd.Variable(pts2d3.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d4 = (pts2d4 - Mean_2D)/SD_2D 
-        pts2d4 = torch.autograd.Variable(pts2d4.cuda(async=True),requires_grad=False) 
+        pts2d4 = torch.autograd.Variable(pts2d4.cuda(non-blocking=True),requires_grad=False) 
 
         pts3dg = pts3dg.narrow(1,1,16) #remove pelvis center
         pts3dg = pts3dg.contiguous()
-        pts3dg = torch.autograd.Variable(pts3dg.cuda(async=True),requires_grad=False) 
+        pts3dg = torch.autograd.Variable(pts3dg.cuda(non-blocking=True),requires_grad=False) 
 
-        R1 = torch.autograd.Variable(R1.cuda(async=True),requires_grad=False)
-        R2 = torch.autograd.Variable(R2.cuda(async=True),requires_grad=False)
-        R3 = torch.autograd.Variable(R3.cuda(async=True),requires_grad=False)
-        R4 = torch.autograd.Variable(R4.cuda(async=True),requires_grad=False)
+        R1 = torch.autograd.Variable(R1.cuda(non-blocking=True),requires_grad=False)
+        R2 = torch.autograd.Variable(R2.cuda(non-blocking=True),requires_grad=False)
+        R3 = torch.autograd.Variable(R3.cuda(non-blocking=True),requires_grad=False)
+        R4 = torch.autograd.Variable(R4.cuda(non-blocking=True),requires_grad=False)
 
-        V1 = torch.autograd.Variable(V1.cuda(async=True),requires_grad=False)
-        V2 = torch.autograd.Variable(V2.cuda(async=True),requires_grad=False)
-        V3 = torch.autograd.Variable(V3.cuda(async=True),requires_grad=False)
-        V4 = torch.autograd.Variable(V4.cuda(async=True),requires_grad=False)
+        V1 = torch.autograd.Variable(V1.cuda(non-blocking=True),requires_grad=False)
+        V2 = torch.autograd.Variable(V2.cuda(non-blocking=True),requires_grad=False)
+        V3 = torch.autograd.Variable(V3.cuda(non-blocking=True),requires_grad=False)
+        V4 = torch.autograd.Variable(V4.cuda(non-blocking=True),requires_grad=False)
 
         # output 
         output = net(pts2d1, pts2d2, pts2d3, pts2d4, Mean_Delta, SD_Delta, R1, R2, R3, R4, V1, V2, V3, V4)
@@ -236,30 +236,30 @@ def validate(val_loader, net, Mean_2D, Mean_Delta, Mean_3D, SD_2D, SD_Delta, SD_
         # input and groundtruth 
 
         pts2d1 = (pts2d1 - Mean_2D)/SD_2D 
-        pts2d1 = torch.autograd.Variable(pts2d1.cuda(async=True),requires_grad=False) 
+        pts2d1 = torch.autograd.Variable(pts2d1.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d2 = (pts2d2 - Mean_2D)/SD_2D 
-        pts2d2 = torch.autograd.Variable(pts2d2.cuda(async=True),requires_grad=False) 
+        pts2d2 = torch.autograd.Variable(pts2d2.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d3 = (pts2d3 - Mean_2D)/SD_2D 
-        pts2d3 = torch.autograd.Variable(pts2d3.cuda(async=True),requires_grad=False) 
+        pts2d3 = torch.autograd.Variable(pts2d3.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d4 = (pts2d4 - Mean_2D)/SD_2D 
-        pts2d4 = torch.autograd.Variable(pts2d4.cuda(async=True),requires_grad=False) 
+        pts2d4 = torch.autograd.Variable(pts2d4.cuda(non-blocking=True),requires_grad=False) 
 
         pts3dg = pts3dg.narrow(1,1,16) #remove pelvis center
         pts3dg = pts3dg.contiguous()
-        pts3dg = torch.autograd.Variable(pts3dg.cuda(async=True),requires_grad=False) 
+        pts3dg = torch.autograd.Variable(pts3dg.cuda(non-blocking=True),requires_grad=False) 
 
-        R1 = torch.autograd.Variable(R1.cuda(async=True),requires_grad=False)
-        R2 = torch.autograd.Variable(R2.cuda(async=True),requires_grad=False)
-        R3 = torch.autograd.Variable(R3.cuda(async=True),requires_grad=False)
-        R4 = torch.autograd.Variable(R4.cuda(async=True),requires_grad=False)
+        R1 = torch.autograd.Variable(R1.cuda(non-blocking=True),requires_grad=False)
+        R2 = torch.autograd.Variable(R2.cuda(non-blocking=True),requires_grad=False)
+        R3 = torch.autograd.Variable(R3.cuda(non-blocking=True),requires_grad=False)
+        R4 = torch.autograd.Variable(R4.cuda(non-blocking=True),requires_grad=False)
 
-        V1 = torch.autograd.Variable(V1.cuda(async=True),requires_grad=False)
-        V2 = torch.autograd.Variable(V2.cuda(async=True),requires_grad=False)
-        V3 = torch.autograd.Variable(V3.cuda(async=True),requires_grad=False)
-        V4 = torch.autograd.Variable(V4.cuda(async=True),requires_grad=False)
+        V1 = torch.autograd.Variable(V1.cuda(non-blocking=True),requires_grad=False)
+        V2 = torch.autograd.Variable(V2.cuda(non-blocking=True),requires_grad=False)
+        V3 = torch.autograd.Variable(V3.cuda(non-blocking=True),requires_grad=False)
+        V4 = torch.autograd.Variable(V4.cuda(non-blocking=True),requires_grad=False)
 
         # output 
         output = net(pts2d1, pts2d2, pts2d3, pts2d4, Mean_Delta, SD_Delta, R1, R2, R3, R4, V1, V2, V3, V4)     
@@ -348,30 +348,30 @@ def demo(demo_loader, net, Mean_2D, Mean_Delta, Mean_3D, SD_2D, SD_Delta, SD_3D,
 
         # input and groundtruth
         pts2d1 = (pts2d1 - Mean_2D)/SD_2D 
-        pts2d1 = torch.autograd.Variable(pts2d1.cuda(async=True),requires_grad=False) 
+        pts2d1 = torch.autograd.Variable(pts2d1.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d2 = (pts2d2 - Mean_2D)/SD_2D 
-        pts2d2 = torch.autograd.Variable(pts2d2.cuda(async=True),requires_grad=False) 
+        pts2d2 = torch.autograd.Variable(pts2d2.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d3 = (pts2d3 - Mean_2D)/SD_2D 
-        pts2d3 = torch.autograd.Variable(pts2d3.cuda(async=True),requires_grad=False) 
+        pts2d3 = torch.autograd.Variable(pts2d3.cuda(non-blocking=True),requires_grad=False) 
 
         pts2d4 = (pts2d4 - Mean_2D)/SD_2D 
-        pts2d4 = torch.autograd.Variable(pts2d4.cuda(async=True),requires_grad=False) 
+        pts2d4 = torch.autograd.Variable(pts2d4.cuda(non-blocking=True),requires_grad=False) 
 
         pts3dg = pts3dg.contiguous()
-        pts3dg = torch.autograd.Variable(pts3dg.cuda(async=True),requires_grad=False) 
+        pts3dg = torch.autograd.Variable(pts3dg.cuda(non-blocking=True),requires_grad=False) 
         ###target_var = (pts3dg - Mean_3D)/SD_3D 
 
-        R1 = torch.autograd.Variable(R1.cuda(async=True),requires_grad=False)
-        R2 = torch.autograd.Variable(R2.cuda(async=True),requires_grad=False)
-        R3 = torch.autograd.Variable(R3.cuda(async=True),requires_grad=False)
-        R4 = torch.autograd.Variable(R4.cuda(async=True),requires_grad=False)
+        R1 = torch.autograd.Variable(R1.cuda(non-blocking=True),requires_grad=False)
+        R2 = torch.autograd.Variable(R2.cuda(non-blocking=True),requires_grad=False)
+        R3 = torch.autograd.Variable(R3.cuda(non-blocking=True),requires_grad=False)
+        R4 = torch.autograd.Variable(R4.cuda(non-blocking=True),requires_grad=False)
 
-        V1 = torch.autograd.Variable(V1.cuda(async=True),requires_grad=False)
-        V2 = torch.autograd.Variable(V2.cuda(async=True),requires_grad=False)
-        V3 = torch.autograd.Variable(V3.cuda(async=True),requires_grad=False)
-        V4 = torch.autograd.Variable(V4.cuda(async=True),requires_grad=False)
+        V1 = torch.autograd.Variable(V1.cuda(non-blocking=True),requires_grad=False)
+        V2 = torch.autograd.Variable(V2.cuda(non-blocking=True),requires_grad=False)
+        V3 = torch.autograd.Variable(V3.cuda(non-blocking=True),requires_grad=False)
+        V4 = torch.autograd.Variable(V4.cuda(non-blocking=True),requires_grad=False)
 
         # output 
         output = net(pts2d1, pts2d2, pts2d3, pts2d4, Mean_Delta, SD_Delta, R1, R2, R3, R4, V1, V2, V3, V4)     
